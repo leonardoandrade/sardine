@@ -2,19 +2,19 @@
 #define BOARD_H
 #include "definitions.h"
 
-typedef struct piece {
+typedef struct Piece {
     PIECE type;
     U64 position;
-    piece * next;  // linked list of pieces
-}
+    struct Piece * next;  // linked list of pieces
+} Piece;
 
-typedef struct board {
+typedef struct Board {
     U64 flags;
-    piece first;
-};
+    Piece first;
+} Board;
 
-char* to_fen(board);
+char * to_fen(Board);
 
-void dump(board);
+void dump_board(Board);
 
 #endif
