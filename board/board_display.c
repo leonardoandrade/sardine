@@ -21,8 +21,8 @@ void dump_byte(char c) {
 	printf("%s\n", str);
 }
 
-void dump_piece(Piece piece) {
-	U64 bit_board = piece.position;
+void dump_piece(Piece * piece) {
+	U64 bit_board = piece->position;
 	printf("Board %llx (%lld):\n", bit_board, bit_board);
 	for(int i = 0; i < 8; i++) {
 		char c = bit_board >> (8 * i);
@@ -30,6 +30,6 @@ void dump_piece(Piece piece) {
 	}
 }
 
-void dump_board(Board board) { 
-	dump_u64(board.first);
+void dumpBoard(Board * board) { 
+	dump_piece(board->first);
 }

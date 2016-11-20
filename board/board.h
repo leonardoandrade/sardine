@@ -10,11 +10,19 @@ typedef struct Piece {
 
 typedef struct Board {
     U64 flags;
-    Piece first;
+    Piece * first;
 } Board;
 
 char * to_fen(Board);
 
-void dump_board(Board);
+Board * makeBoard();
+
+Piece * makePiece(PIECE, SQUARE);
+
+void addPieceToBoard(Board *, PIECE, SQUARE);
+
+void setCastlingPossibilitiesToBoard(Board *, int, int, int, int);
+
+void setEnPassantColumnToBoard(Board *, int);
 
 #endif

@@ -1,14 +1,19 @@
+FLAGS = -g -Wall
+CC=gcc
 clean:
-	rm *.o sardine print_board
+	rm -f */*.o sardine print_board
 
-sardine: sardine.o
-	gcc -g -c -o sardine.o sardine.c
-	gcc -o sardine.o
+sardine: sardine.c
+	$(CC) $(FLAGS) -c -o sardine.o sardine.c
+	$(CC) -o sardine.o
 
-board: board/board.o
-	gcc -g -c -o board/board.o board/board.c 
+board: board/board.c
+	$(CC) $(FLAGS) -c -o board/board.o board/board.c 
 
-print_board: tools/print_board.c board
-	gcc -g -o print_board tools/print_board.c board/board.o
+board_display: board/board_display.c
+	$(CC) $(FLAGS) -c -o board/board_display.o board/board_display.c 
+
+print_board: tools/print_board.c board/board.o board_display
+	$(CC) $(FLAGS) -o print_board tools/print_board.c board/board.o board/board_display.o
 
 all: print_board
