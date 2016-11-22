@@ -13,5 +13,7 @@
 int main(int argc, char ** argv) {
 	Board * board = makeBoard();
 	addPieceToBoard(board, BLACK_BISHOP, F3);
+	addPieceToBoard(board, WHITE_KING, E1);
+	addPieceToBoard(board, BLACK_KING, E8);
 	dumpBoard(board);
 }
