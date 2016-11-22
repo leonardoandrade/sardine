@@ -17,7 +17,7 @@ Board * makeBoard() {
 
 Piece * makePiece(PIECE piece, SQUARE square) {
 	U64 position = (U64) 1 << square;
-	Piece * p = malloc(sizeof(piece));
+	Piece * p = malloc(sizeof(Piece));
 	p->type = piece;
 	p->position = position;
 	p->next = NULL; 
