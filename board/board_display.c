@@ -30,6 +30,8 @@ char pieceAsChar(Piece * piece) {
 			return 'k';
 		case WHITE_QUEEN:
 			return 'Q';
+		case BLACK_QUEEN:
+			return 'q';	
 		case WHITE_ROOK:
 			return 'R';
 		case BLACK_ROOK:
