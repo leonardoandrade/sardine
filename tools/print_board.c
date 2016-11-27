@@ -1,11 +1,11 @@
 /** 
- * Helper tools to print board and help debug operations
+ * Helper tools to print position and help debug operations
  */
 
-#include "../board/definitions.h"
-#include "../board/board.h"
-#include "../board/board_display.h"
-#include "../board/fen.h"
+#include "../position/definitions.h"
+#include "../position/position.h"
+#include "../position/board_display.h"
+#include "../position/fen.h"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -18,15 +18,15 @@ int main(int argc, char ** argv) {
 		exit(0);
 	}
 	/*
-	Board * board = makeBoard();
-	addPieceToBoard(board, WHITE_KING, E1);
-	addPieceToBoard(board, WHITE_PAWN, F2);
-	addPieceToBoard(board, WHITE_PAWN, E2);
-	addPieceToBoard(board, BLACK_PAWN, B7);
-	addPieceToBoard(board, WHITE_KNIGHT, C5);
-	addPieceToBoard(board, BLACK_KING, E8);
-	addPieceToBoard(board, BLACK_BISHOP, F3);
+	Position * position = makePosition();
+	addPieceToPosition(position, WHITE_KING, E1);
+	addPieceToPosition(position, WHITE_PAWN, F2);
+	addPieceToPosition(position, WHITE_PAWN, E2);
+	addPieceToPosition(position, BLACK_PAWN, B7);
+	addPieceToPosition(position, WHITE_KNIGHT, C5);
+	addPieceToPosition(position, BLACK_KING, E8);
+	addPieceToPosition(position, BLACK_BISHOP, F3);
 	*/
-	Board * board = fenToBoard(argv[1]);
-	dumpBoard(board);
+	Position * position = fenToPosition(argv[1]);
+	dumpPosition(position);
 }

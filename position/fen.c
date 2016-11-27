@@ -1,5 +1,5 @@
 #include "fen.h"
-#include "board.h" 
+#include "position.h" 
 #include <string.h>
 #include <stdio.h>
 
@@ -28,7 +28,7 @@ PIECE charToPiece(char c) {
 	return 99;
 }
 
-void  processPiecesFragment(Board * board, char * fragment) {
+void  processPiecesFragment(Position * position, char * fragment) {
 	char * row_str = NULL;
 	int row = 0;
 	row_str = strtok(fragment, "/");
@@ -46,7 +46,7 @@ void  processPiecesFragment(Board * board, char * fragment) {
 			}
 			else {
 				PIECE p = charToPiece(c);
-				addPieceToBoard(board, p, positionToPosition[row][column]);
+				addPieceToPosition(position, p, positionToPosition[row][column]);
 				column++;
 			}
 			//printf("%c", row_str[i]);
@@ -57,11 +57,11 @@ void  processPiecesFragment(Board * board, char * fragment) {
 	}
 }
 
-Board * fenToBoard(char * fen) {
+Position * fenToPosition(char * fen) {
 	printf("1-->%s\n", fen);
 	char * first_fragment = strtok(fen, " ");
 	printf("2-->%s\n", first_fragment);
-	Board * board = makeBoard();
-	processPiecesFragment(board, first_fragment);
-	return board;
+	Position * position = makePosition();
+	processPiecesFragment(position, first_fragment);
+	return position;
 }

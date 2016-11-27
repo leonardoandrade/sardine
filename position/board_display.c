@@ -1,7 +1,7 @@
 #include <string.h>
 #include <stdio.h>
 #include "definitions.h"
-#include "board.h"
+#include "position.h"
 
 #define EMPTY_SQUARE '*'
 #define OCCUPIED_SQUARE 'X'
@@ -54,63 +54,61 @@ char pieceAsChar(Piece * piece) {
 	return 'X';
 }
 void dump_piece(Piece * piece) {
-	U64 bit_board = piece->position;
-	printf("Board %llx (%lld):\n", bit_board, bit_board);
+	U64 bit_position = piece->position;
+	printf("Position %llx (%lld):\n", bit_position, bit_position);
 	for(int i = 0; i < 8; i++) {
-		char c = bit_board >> (8 * i);
+		char c = bit_position >> (8 * i);
 		dump_byte(c);
 	}
 }
 
-void writePieceToBoard(char boardView[8][8], Piece * piece) {
-	U64 bit_board = piece->position;
-	printf("Board %llx (%lld):\n", bit_board, bit_board);
+void writePieceToPosition(char positionView[8][8], Piece * piece) {
+	U64 bit_position = piece->position;
 	for(int i = 0; i < 8; i++) {
-		char c = bit_board >> (8 * i);
+		char c = bit_position >> (8 * i);
 		if(c & 0x01) {
-			boardView[i][0] = pieceAsChar(piece);
+			positionView[i][0] = pieceAsChar(piece);
 		}
 		else if(c & 0x02) {
-			boardView[i][1] = pieceAsChar(piece);
+			positionView[i][1] = pieceAsChar(piece);
 		}
 		else if(c & 0x04) {
-			boardView[i][2] = pieceAsChar(piece);
+			positionView[i][2] = pieceAsChar(piece);
 		}
 		else if(c & 0x08) {
-			boardView[i][3] = pieceAsChar(piece);
+			positionView[i][3] = pieceAsChar(piece);
 		}
 		else if(c & 0x10) {
-			boardView[i][4] = pieceAsChar(piece);
+			positionView[i][4] = pieceAsChar(piece);
 		}
 		else if(c & 0x20) {
-			boardView[i][5] = pieceAsChar(piece);
+			positionView[i][5] = pieceAsChar(piece);
 		}
 		else if(c & 0x40) {
-			boardView[i][6] = pieceAsChar(piece);
+			positionView[i][6] = pieceAsChar(piece);
 		}
 		else if(c & 0x80) {
-			boardView[i][7] = pieceAsChar(piece);
+			positionView[i][7] = pieceAsChar(piece);
 		}
 	}
 }
 
-void dumpBoard(Board * board) {
-	char boardView [8][8];
+void dumpPosition(Position * position) {
+	char positionView [8][8];
 	for(int i = 0; i < 8; i++) {
 		for(int j = 0; j< 8; j++) {
-			boardView[i][j] = EMPTY_SQUARE;
+			positionView[i][j] = EMPTY_SQUARE;
 		}
 	}
 	
-
-	Piece * piece = board->first;
+	Piece * piece = position->first;
 	while(piece != NULL) {
-		writePieceToBoard(boardView, piece);
+		writePieceToPosition(positionView, piece);
 		piece = piece->next;
 	}
 	for(int i = 0; i < 8; i++) {
 		for(int j = 0; j< 8; j++) {
-			printf("%c", boardView[i][j]);
+			printf("%c", positionView[i][j]);
 		}
 		printf("\n");
 	}

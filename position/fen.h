@@ -1,8 +1,8 @@
 #ifndef FEN_H
 #define FEN_H
 #include "definitions.h"
-#include "board.h"
+#include "position.h"
 
-Board * fenToBoard(char *);
+Position * fenToPosition(char *);
 
 #endif

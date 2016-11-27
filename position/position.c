@@ -1,18 +1,18 @@
 #include "./definitions.h"
-#include "./board.h"
+#include "./position.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 
 /**
- * all operations related to the board itself
+ * all operations related to the position itself
  */
 
-Board * makeBoard() {
-	Board * b =  malloc(sizeof(Board));
-	b->first = NULL;
-	b->flags = 0;
-	return b;
+Position * makePosition() {
+	Position * p =  malloc(sizeof(Position));
+	p->first = NULL;
+	p->flags = 0;
+	return p;
 }
 
 Piece * makePiece(PIECE piece, SQUARE square) {
@@ -24,13 +24,13 @@ Piece * makePiece(PIECE piece, SQUARE square) {
 	return p;
 }
 
-void addPieceToBoard(Board * board, PIECE pieceToAdd, SQUARE square) {
-	if(board->first == NULL) {
-		board->first = makePiece(pieceToAdd, square);
+void addPieceToPosition(Position * position, PIECE pieceToAdd, SQUARE square) {
+	if(position->first == NULL) {
+		position->first = makePiece(pieceToAdd, square);
 		return;
 	}
 	
-	Piece * piece = board->first;
+	Piece * piece = position->first;
 	
 	while(1) {
 		if(piece->next == NULL) {

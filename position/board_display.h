@@ -2,6 +2,6 @@
 #define BOARD_DISPLAY_H
 #include "definitions.h"
 
-void dumpBoard(Board*);
+void dumpPosition(Position*);
 
 #endif
