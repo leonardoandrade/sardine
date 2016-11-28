@@ -40,3 +40,13 @@ void addPieceToPosition(Position * position, PIECE pieceToAdd, SQUARE square) {
 		piece = piece->next;
 	}
 }
+
+int countPiecesOfPosition(Position * position) {
+	int count = 0;
+	Piece * p = position->first;
+	while(p != NULL) {
+		count ++;
+		p = p->next;
+	} 
+	return count;
+}

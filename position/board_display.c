@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include "definitions.h"
 #include "position.h"
+#include "board_display.h"
 
 #define EMPTY_SQUARE '*'
 #define OCCUPIED_SQUARE 'X'
