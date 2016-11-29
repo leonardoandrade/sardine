@@ -1,5 +1,5 @@
-#include "./definitions.h"
-#include "./position.h"
+#include "definitions.h"
+#include "position.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -25,12 +25,10 @@ Piece * makePiece(PIECE piece, SQUARE square) {
 }
 
 void addPieceToPosition(Position * position, PIECE pieceToAdd, SQUARE square) {
-	if(position->first == NULL) {
-		position->first = makePiece(pieceToAdd, square);
-		return;
-	}
-	
-	Piece * piece = position->first;
+
+
+    if(pieceToAdd == //TODO)
+	Piece * piece = position->firstWhite;
 	
 	while(1) {
 		if(piece->next == NULL) {
@@ -50,3 +48,15 @@ int countPiecesOfPosition(Position * position) {
 	} 
 	return count;
 }
+
+
+int countBlackPiecesOfPosition(Position * position) {
+    int count = 0;
+    Piece * p = position->first;
+    while(p != NULL) {
+        count ++;
+        p = p->next;
+    }
+    return count;
+}
+
