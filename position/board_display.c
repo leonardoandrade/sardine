@@ -102,11 +102,17 @@ void dumpPosition(Position * position) {
 		}
 	}
 	
-	Piece * piece = position->first;
+	Piece * piece = position->firstWhite;
 	while(piece != NULL) {
 		writePieceToPosition(positionView, piece);
 		piece = piece->next;
 	}
+
+    piece = position->firstBlack;
+    while(piece != NULL) {
+        writePieceToPosition(positionView, piece);
+        piece = piece->next;
+    }
 	for(int i = 0; i < 8; i++) {
 		for(int j = 0; j< 8; j++) {
 			printf("%c", positionView[i][j]);

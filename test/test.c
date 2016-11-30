@@ -12,6 +12,9 @@ void testBuildFromFen() {
 	TEST_ASSERT_NOT_NULL(position);
 	printf("-->%d\n", countPiecesOfPosition(position));
 	TEST_ASSERT_TRUE(countPiecesOfPosition(position) == 32);
+    TEST_ASSERT_TRUE(countWhitePiecesOfPosition(position) == 16);
+    TEST_ASSERT_TRUE(countBlackPiecesOfPosition(position) == 16);
+
 }
 
 int main() {

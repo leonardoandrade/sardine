@@ -8,7 +8,7 @@ sardine: sardine.c
 	$(CC) $(FLAGS) -c -o sardine.o sardine.c
 	$(CC) -o sardine.o
 
-position: position/position.c
+position: position/position.c position/position.o
 	$(CC) $(FLAGS) -c -o position/position.o position/position.c 
 
 fen: position/fen.c

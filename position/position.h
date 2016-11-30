@@ -42,7 +42,7 @@ int countPiecesOfPosition(Position * position);
 
 int countWhitePiecesOfPosition(Position * position);
 
-int countBlackOfPosition(Position * position);
+int countBlackPiecesOfPosition(Position * position);
 
 
 #endif
