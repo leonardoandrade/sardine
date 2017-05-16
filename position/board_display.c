@@ -54,6 +54,7 @@ char pieceAsChar(Piece * piece) {
 	}
 	return 'X';
 }
+
 void dump_piece(Piece * piece) {
 	U64 bit_position = piece->position;
 	printf("Position %llx (%lld):\n", bit_position, bit_position);
@@ -66,7 +67,7 @@ void dump_piece(Piece * piece) {
 void writePieceToPosition(char positionView[8][8], Piece * piece) {
 	U64 bit_position = piece->position;
 	for(int i = 0; i < 8; i++) {
-		char c = bit_position >> (8 * i);
+		char c = (char)(bit_position >> (8 * i));
 		if(c & 0x01) {
 			positionView[i][0] = pieceAsChar(piece);
 		}
@@ -94,7 +95,27 @@ void writePieceToPosition(char positionView[8][8], Piece * piece) {
 	}
 }
 
+void dumpFlags(Position * p) {
+    char str[8];
+    memset(str, ' ',8);
+    str[0] = p->flags & 0x01 ? '1' : '0';
+    str[1] = p->flags & 0x02 ? '1' : '0';
+    str[2] = p->flags & 0x05 ? '1' : '0';
+    str[3] = p->flags & 0x08 ? '1' : '0';
+    str[4] = p->flags & 0x10 ? '1' : '0';
+    str[5] = p->flags & 0x20 ? '1' : '0';
+    str[6] = p->flags & 0x40 ? '1' : '0';
+    str[7] = p->flags & 0x40 ? '1' : '0';
+    printf("Flags: %s\n", str);
+}
+
+
 void dumpPosition(Position * position) {
+    char * to_move = isWhiteToMove(position) ? "white" : " black";
+
+    printf("%s to move:\n", to_move);
+
+
 	char positionView [8][8];
 	for(int i = 0; i < 8; i++) {
 		for(int j = 0; j< 8; j++) {
@@ -119,4 +140,5 @@ void dumpPosition(Position * position) {
 		}
 		printf("\n");
 	}
+    dumpFlags(position);
 }

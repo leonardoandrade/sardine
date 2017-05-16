@@ -1,5 +1,6 @@
 #include "fen.h"
-#include "position.h" 
+#include "position.h"
+#include "common.h"
 #include <string.h>
 #include <stdio.h>
 
@@ -25,7 +26,8 @@ PIECE charToPiece(char c) {
 			return pieceNames[i];
 		}
 	}
-	return 99;
+    panic("piece is not recognized");
+    return (PIECE) NULL;
 }
 
 void  processPiecesFragment(Position * position, char * fragment) {
@@ -33,11 +35,7 @@ void  processPiecesFragment(Position * position, char * fragment) {
 	int row = 0;
 	row_str = strtok(fragment, "/");
 	while(row_str != NULL) {
-		
-		if(row_str == NULL) {
-			break;
-		}
-		
+
 		int column = 0;
 		for(int i=0; i<strlen(row_str); i++) {
 			char c = row_str[i];
@@ -57,11 +55,44 @@ void  processPiecesFragment(Position * position, char * fragment) {
 	}
 }
 
+void processCastling(Position * position, char * fragment) {
+	for(int i = 0; i<strlen(fragment); i++) {
+		if(fragment[i]=='K') setWhiteKingSideCastle(position);
+		else if(fragment[i]=='k') setWhiteQueenSideCastle(position);
+		else if(fragment[i]=='Q') setBlackKingSideCastle(position);
+		else if(fragment[i]=='q') setBlackQueenSideCastle(position);
+	}
+}
+
 Position * fenToPosition(char * fen) {
+
 	printf("1-->%s\n", fen);
-	char * first_fragment = strtok(fen, " ");
-	printf("2-->%s\n", first_fragment);
 	Position * position = makePosition();
+	//process pieces positions
+	char * first_fragment = strtok(fen, " ");
+	printf("1st fragment -->%s\n", first_fragment);
+
+	//2. side to move
+	char * second_fragment = strtok(NULL, " ");
+	printf("2nd fragment -->%s\n", second_fragment);
+
+	if(second_fragment[0] == 'w') {
+		setWhiteToMove(position);
+	}
+	else if(second_fragment[0] == 'b') {
+		setBlackToMove(position);
+	}
+	else {
+		panic("Error parsing FEN: turn to move is not 'w' or 'b'");
+	}
+
+	//3. castling
+	char * third_fragment = strtok(NULL, " ");
+	printf("3rd fragment -->%s\n", third_fragment);
+	processCastling(position, third_fragment);
+
+
 	processPiecesFragment(position, first_fragment);
+
 	return position;
 }

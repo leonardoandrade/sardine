@@ -1,7 +1,11 @@
 #ifndef DEFINITIONS_H
 #define DEFINITIONS_H
 
-typedef unsigned long long  U64;
+#ifndef NULL
+#define NULL   ((void *) 0)
+#endif
+
+typedef unsigned long long U64;
 typedef unsigned char PIECE;
 typedef unsigned char SQUARE;
 
@@ -20,7 +24,7 @@ typedef unsigned char SQUARE;
 #define WHITE_PAWN 10
 #define BLACK_PAWN 11
 
-//squrare definitions (from A8 to H1, inverted cartesian)
+//square definitions (from A8 to H1, inverted cartesian)
 #define A8 0
 #define B8 1
 #define C8 2

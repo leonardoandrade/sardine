@@ -1,6 +1,7 @@
 #ifndef BOARD_H
 #define BOARD_H
 #include "definitions.h"
+#include <stdbool.h>
 
 typedef struct Piece {
     PIECE type;
@@ -15,7 +16,7 @@ typedef struct Position {
 } Position;
 
 
-/*Flags work like this:
+/* Flags work like this:
  * pos | flag
  *   0 | white to move
  *   1 | white can 0-0
@@ -25,12 +26,17 @@ typedef struct Position {
  *   5 | TBA
 */
 
-
 char * to_fen(Position);
 
 Position * makePosition();
 
 Piece * makePiece(PIECE, SQUARE);
+
+void setWhiteToMove(Position *);
+
+void setBlackToMove(Position *);
+
+bool isWhiteToMove(Position *);
 
 void addPieceToPosition(Position *, PIECE, SQUARE);
 
@@ -40,9 +46,25 @@ void setEnPassantColumnToPosition(Position *, int);
 
 int countPiecesOfPosition(Position * position);
 
-int countWhitePiecesOfPosition(Position * position);
+int countWhitePieces(Position * position);
 
-int countBlackPiecesOfPosition(Position * position);
+int countBlackPieces(Position * position);
+
+void setWhiteKingSideCastle(Position * position);
+
+void setWhiteQueenSideCastle(Position * position);
+
+void setBlackKingSideCastle(Position * position);
+
+void setBlackQueenSideCastle(Position * position);
+
+bool isWhiteKingSideCastle(Position * position);
+
+bool isWhiteQueenSideCastle(Position * position);
+
+bool isBlackKingSideCastle(Position * position);
+
+bool isBlackQueenSideCastle(Position * position);
 
 
 #endif
