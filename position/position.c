@@ -28,22 +28,23 @@ Piece * makePiece(PIECE piece, SQUARE square) {
 }
 
 
-bool isWhite(PIECE piece) {
+bool Piece_isWhite(PIECE piece) {
     return (piece == WHITE_KING || piece == WHITE_QUEEN || piece == WHITE_ROOK
             || piece == WHITE_BISHOP || piece == WHITE_BISHOP || piece == WHITE_KNIGHT || piece == WHITE_PAWN);
 }
 
-void addPieceToPosition(Position * position, PIECE pieceToAdd, SQUARE square) {
-    if (isWhite(pieceToAdd) && position->firstWhite == NULL) {
+void Position_addPieceToPosition(Position * position, PIECE pieceToAdd, SQUARE square) {
+    if (Piece_isWhite(pieceToAdd) && position->firstWhite == NULL) {
         position->firstWhite = makePiece(pieceToAdd, square);
         return;
     }
-    if (!isWhite(pieceToAdd) && position->firstBlack == NULL) {
+
+    if (!Piece_isWhite(pieceToAdd) && position->firstBlack == NULL) {
         position->firstBlack = makePiece(pieceToAdd, square);
         return;
     }
 
-    Piece *piece = isWhite(pieceToAdd) ? position->firstWhite : position->firstBlack;
+    Piece *piece = Piece_isWhite(pieceToAdd) ? position->firstWhite : position->firstBlack;
 
 	while(1) {
 		if(piece->next == NULL) {
@@ -54,7 +55,7 @@ void addPieceToPosition(Position * position, PIECE pieceToAdd, SQUARE square) {
 	}
 }
 
-int countWhitePieces(Position * position) {
+int Position_countWhitePieces(Position * position) {
     int count = 0;
     Piece * p = position->firstWhite;
     while(p != NULL) {
@@ -64,7 +65,7 @@ int countWhitePieces(Position * position) {
     return count;
 }
 
-int countBlackPieces(Position * position) {
+int Position_countBlackPieces(Position * position) {
     int count = 0;
     Piece * p = position->firstBlack;
     while(p != NULL) {
@@ -74,50 +75,51 @@ int countBlackPieces(Position * position) {
     return count;
 }
 
-int countPiecesOfPosition(Position * position) {
-	return countWhitePieces(position) + countBlackPieces(position);
+int Position_countPiecesOfPosition(Position * position) {
+	return Position_countWhitePieces(position) + Position_countBlackPieces(position);
 }
 
-void setWhiteToMove(Position * position) {
+void Position_setWhiteToMove(Position * position) {
     position->flags |= 0x1;
 }
 
-void setBlackToMove(Position * position) {
+void Position_setBlackToMove(Position * position) {
     position->flags |= 0x0;
 }
 
-bool isWhiteToMove(Position * position) {
+bool Position_isWhiteToMove(Position * position) {
     return position->flags & 0x01;
 }
 
-void setWhiteKingSideCastle(Position * position) {
+void Position_setWhiteKingSideCastle(Position * position) {
 	position->flags |= 1 << 2;
 }
 
-void setWhiteQueenSideCastle(Position * position) {
+void Position_setWhiteQueenSideCastle(Position * position) {
 	position->flags |= 1 << 3;
 }
 
-void setBlackKingSideCastle(Position * position) {
+void Position_setBlackKingSideCastle(Position * position) {
 	position->flags |= 1 << 4;
 }
 
-void setBlackQueenSideCastle(Position * position) {
+
+void Position_setBlackQueenSideCastle(Position * position) {
 	position->flags |= 1 << 5;
 }
 
-bool isWhiteKingSideCastle(Position * position) {
+bool Position_isWhiteKingSideCastle(Position * position) {
 	return position->flags & (1 << 2);
 }
 
-bool isWhiteQueenSideCastle(Position * position) {
+bool Position_isWhiteQueenSideCastle(Position * position) {
 	return position->flags & (1 << 3);
 }
 
-bool isBlackKingSideCastle(Position * position) {
+bool Position_isBlackKingSideCastle(Position * position) {
 	return position->flags & (1 << 4);
 }
 
-bool isBlackQueenSideCastle(Position * position) {
+bool Position_isBlackQueenSideCastle(Position * position) {
 	return position->flags & (1 << 5);
 }

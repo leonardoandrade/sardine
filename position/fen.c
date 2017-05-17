@@ -30,7 +30,7 @@ PIECE charToPiece(char c) {
     return (PIECE) NULL;
 }
 
-void  processPiecesFragment(Position * position, char * fragment) {
+void Fen_processPiecesFragment(Position * position, char * fragment) {
 	char * row_str = NULL;
 	int row = 0;
 	row_str = strtok(fragment, "/");
@@ -44,7 +44,7 @@ void  processPiecesFragment(Position * position, char * fragment) {
 			}
 			else {
 				PIECE p = charToPiece(c);
-				addPieceToPosition(position, p, positionToPosition[row][column]);
+				Position_addPieceToPosition(position, p, positionToPosition[row][column]);
 				column++;
 			}
 			//printf("%c", row_str[i]);
@@ -55,13 +55,25 @@ void  processPiecesFragment(Position * position, char * fragment) {
 	}
 }
 
-void processCastling(Position * position, char * fragment) {
+void Fen_processCastling(Position * position, char * fragment) {
 	for(int i = 0; i<strlen(fragment); i++) {
-		if(fragment[i]=='K') setWhiteKingSideCastle(position);
-		else if(fragment[i]=='k') setWhiteQueenSideCastle(position);
-		else if(fragment[i]=='Q') setBlackKingSideCastle(position);
+		if(fragment[i]=='K') Position_setWhiteKingSideCastle(position);
+		else if(fragment[i]=='k') Position_setWhiteQueenSideCastle(position);
+		else if(fragment[i]=='Q')  Position_setBlackKingSideCastle(position);
 		else if(fragment[i]=='q') setBlackQueenSideCastle(position);
 	}
+}
+
+void Fen_processEnPassant(Position * position, char * fragment) {
+	//use only the column, the square can be inferred who is to move
+	char column = fragment[0];
+	switch(column) {
+		case 'a':
+
+			break;
+	}
+
+
 }
 
 Position * fenToPosition(char * fen) {
@@ -80,7 +92,7 @@ Position * fenToPosition(char * fen) {
 		setWhiteToMove(position);
 	}
 	else if(second_fragment[0] == 'b') {
-		setBlackToMove(position);
+		Position_setBlackToMove(position);
 	}
 	else {
 		panic("Error parsing FEN: turn to move is not 'w' or 'b'");
@@ -89,10 +101,10 @@ Position * fenToPosition(char * fen) {
 	//3. castling
 	char * third_fragment = strtok(NULL, " ");
 	printf("3rd fragment -->%s\n", third_fragment);
-	processCastling(position, third_fragment);
+	Fen_processCastling(position, third_fragment);
 
 
-	processPiecesFragment(position, first_fragment);
+	Fen_processPiecesFragment(position, first_fragment);
 
 	return position;
 }

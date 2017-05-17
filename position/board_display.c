@@ -111,7 +111,7 @@ void dumpFlags(Position * p) {
 
 
 void dumpPosition(Position * position) {
-    char * to_move = isWhiteToMove(position) ? "white" : " black";
+    char * to_move = Position_isWhiteToMove(position) ? "white" : " black";
 
     printf("%s to move:\n", to_move);
 

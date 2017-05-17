@@ -32,39 +32,41 @@ Position * makePosition();
 
 Piece * makePiece(PIECE, SQUARE);
 
-void setWhiteToMove(Position *);
+void Position_setWhiteToMove(Position *);
 
-void setBlackToMove(Position *);
+void Position_setBlackToMove(Position *);
 
-bool isWhiteToMove(Position *);
+bool Position_isWhiteToMove(Position *);
 
-void addPieceToPosition(Position *, PIECE, SQUARE);
+void Position_addPieceToPosition(Position *, PIECE, SQUARE);
 
 void setCastlingPossibilitiesToPosition(Position *, int, int, int, int);
 
 void setEnPassantColumnToPosition(Position *, int);
 
-int countPiecesOfPosition(Position * position);
+int Position_countPiecesOfPosition(Position * position);
 
-int countWhitePieces(Position * position);
+int Position_countWhitePieces(Position * position);
 
-int countBlackPieces(Position * position);
+int Position_countBlackPieces(Position * position);
 
-void setWhiteKingSideCastle(Position * position);
+void Position_setWhiteKingSideCastle(Position * position);
 
-void setWhiteQueenSideCastle(Position * position);
+void Position_setWhiteQueenSideCastle(Position * position);
 
-void setBlackKingSideCastle(Position * position);
+void  Position_setBlackKingSideCastle(Position * position);
 
-void setBlackQueenSideCastle(Position * position);
+void setBlackQueenSideCastle(Position* position) {
+	position->flags |= 1 << 5;
+}
 
-bool isWhiteKingSideCastle(Position * position);
+bool Position_isWhiteKingSideCastle(Position * position);
 
-bool isWhiteQueenSideCastle(Position * position);
+bool Position_isWhiteQueenSideCastle(Position * position);
 
-bool isBlackKingSideCastle(Position * position);
+bool Position_isBlackKingSideCastle(Position * position);
 
-bool isBlackQueenSideCastle(Position * position);
+bool Position_isBlackQueenSideCastle(Position * position);
 
 
 #endif

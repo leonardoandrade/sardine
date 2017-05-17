@@ -10,14 +10,14 @@ void testBuildFromFen1() {
 	//dumpPosition(position);
     //printf("w: %d b:%d",countWhitePiecesOfPosition(position), countBlackPieces(position));
 	TEST_ASSERT_NOT_NULL(position);
-	TEST_ASSERT_TRUE(countPiecesOfPosition(position) == 32);
-    TEST_ASSERT_TRUE(countWhitePieces(position) == 16);
-    TEST_ASSERT_TRUE(countBlackPieces(position) == 16);
-	TEST_ASSERT_TRUE(!isWhiteToMove(position));
-	TEST_ASSERT_TRUE(isWhiteKingSideCastle(position));
-	TEST_ASSERT_TRUE(isWhiteQueenSideCastle(position));
-	TEST_ASSERT_TRUE(isBlackKingSideCastle(position));
-	TEST_ASSERT_TRUE(isBlackQueenSideCastle(position));
+	TEST_ASSERT_TRUE(Position_countPiecesOfPosition(position) == 32);
+    TEST_ASSERT_TRUE(Position_countWhitePieces(position) == 16);
+    TEST_ASSERT_TRUE(Position_countBlackPieces(position) == 16);
+	TEST_ASSERT_TRUE(!Position_isWhiteToMove(position));
+	TEST_ASSERT_TRUE(Position_isWhiteKingSideCastle(position));
+	TEST_ASSERT_TRUE(Position_isWhiteQueenSideCastle(position));
+	TEST_ASSERT_TRUE(Position_isBlackKingSideCastle(position));
+	TEST_ASSERT_TRUE(Position_isBlackQueenSideCastle(position));
 }
 
 void testBuildFromFen2() {
@@ -25,27 +25,27 @@ void testBuildFromFen2() {
 	Position * position = fenToPosition(fen);
 	//dumpPosition(position);
 	TEST_ASSERT_NOT_NULL(position);
-	TEST_ASSERT_TRUE(countPiecesOfPosition(position) == 5);
-	TEST_ASSERT_TRUE(countWhitePieces(position) == 3);
-	TEST_ASSERT_TRUE(countBlackPieces(position) == 2);
-	TEST_ASSERT_FALSE(isWhiteKingSideCastle(position));
-	TEST_ASSERT_FALSE(isWhiteQueenSideCastle(position));
-	TEST_ASSERT_FALSE(isBlackKingSideCastle(position));
-	TEST_ASSERT_FALSE(isBlackQueenSideCastle(position));
+	TEST_ASSERT_TRUE(Position_countPiecesOfPosition(position) == 5);
+	TEST_ASSERT_TRUE(Position_countWhitePieces(position) == 3);
+	TEST_ASSERT_TRUE(Position_countBlackPieces(position) == 2);
+	TEST_ASSERT_FALSE(Position_isWhiteKingSideCastle(position));
+	TEST_ASSERT_FALSE(Position_isWhiteQueenSideCastle(position));
+	TEST_ASSERT_FALSE(Position_isBlackKingSideCastle(position));
+	TEST_ASSERT_FALSE(Position_isBlackQueenSideCastle(position));
 }
 
 void testBuildFromFen3() {
 	char fen[] = "r3k3/8/8/8/8/8/1P7/4K2R b Kq - 20 2";
 	Position * position = fenToPosition(fen);
 	TEST_ASSERT_NOT_NULL(position);
-	TEST_ASSERT_TRUE(countPiecesOfPosition(position) == 5);
-	TEST_ASSERT_TRUE(countWhitePieces(position) == 3);
-	TEST_ASSERT_TRUE(countBlackPieces(position) == 2);
-	TEST_ASSERT_FALSE(isWhiteToMove(position));
-	TEST_ASSERT_TRUE(isWhiteKingSideCastle(position));
-	TEST_ASSERT_FALSE(isWhiteQueenSideCastle(position));
-	TEST_ASSERT_FALSE(isBlackKingSideCastle(position));
-	TEST_ASSERT_TRUE(isBlackQueenSideCastle(position));
+	TEST_ASSERT_TRUE(Position_countPiecesOfPosition(position) == 5);
+	TEST_ASSERT_TRUE(Position_countWhitePieces(position) == 3);
+	TEST_ASSERT_TRUE(Position_countBlackPieces(position) == 2);
+	TEST_ASSERT_FALSE(Position_isWhiteToMove(position));
+	TEST_ASSERT_TRUE(Position_isWhiteKingSideCastle(position));
+	TEST_ASSERT_FALSE(Position_isWhiteQueenSideCastle(position));
+	TEST_ASSERT_FALSE(Position_isBlackKingSideCastle(position));
+	TEST_ASSERT_TRUE(Position_isBlackQueenSideCastle(position));
 }
 
 void testAllFen() {
