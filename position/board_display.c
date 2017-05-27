@@ -105,7 +105,7 @@ void dumpFlags(Position * p) {
     str[4] = p->flags & 0x10 ? '1' : '0';
     str[5] = p->flags & 0x20 ? '1' : '0';
     str[6] = p->flags & 0x40 ? '1' : '0';
-    str[7] = p->flags & 0x40 ? '1' : '0';
+    str[7] = p->flags & 0x80 ? '1' : '0';
     printf("Flags: %s\n", str);
 }
 

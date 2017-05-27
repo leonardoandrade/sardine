@@ -17,13 +17,13 @@ typedef struct Position {
 
 
 /* Flags work like this:
- * pos | flag
- *   0 | white to move
- *   1 | white can 0-0
- *   2 | black can 0-0
- *   3 | white can 0-0-0
- *   4 | black can 0-0-0
- *   5 | TBA
+ * pos   | flag
+ *   0   | white to move
+ *   1   | white can 0-0
+ *   2   | black can 0-0
+ *   3   | white can 0-0-0
+ *   4   | black can 0-0-0
+ *   5-6 | column of en-passant. From 1 to 8, or 0 for no-enpassant
 */
 
 char * to_fen(Position);
@@ -42,23 +42,21 @@ void Position_addPieceToPosition(Position *, PIECE, SQUARE);
 
 void setCastlingPossibilitiesToPosition(Position *, int, int, int, int);
 
-void setEnPassantColumnToPosition(Position *, int);
-
+//Piece count
 int Position_countPiecesOfPosition(Position * position);
 
 int Position_countWhitePieces(Position * position);
 
 int Position_countBlackPieces(Position * position);
 
+//Castling
 void Position_setWhiteKingSideCastle(Position * position);
 
 void Position_setWhiteQueenSideCastle(Position * position);
 
-void  Position_setBlackKingSideCastle(Position * position);
+void Position_setBlackKingSideCastle(Position * position);
 
-void setBlackQueenSideCastle(Position* position) {
-	position->flags |= 1 << 5;
-}
+void Position_setBlackQueenSideCastle(Position* position);
 
 bool Position_isWhiteKingSideCastle(Position * position);
 
@@ -68,5 +66,9 @@ bool Position_isBlackKingSideCastle(Position * position);
 
 bool Position_isBlackQueenSideCastle(Position * position);
 
+//En Passant
+void Position_setEnPassantColumn(Position *, int);
+void Position_resetEnPassant(Position *);
+int  Position_getEnPassantColumn(Position *);
 
 #endif

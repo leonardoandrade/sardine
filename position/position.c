@@ -5,6 +5,11 @@
 #include <string.h>
 #include <stdbool.h>
 
+#define FLAGS_START_EN_PASSANT 7
+#define FLAGS_START_HALFMOVE_COUNT 7
+#define FLAGS_START_HALFMOVE_COUNT_WITHOUT_CAPTURE 11
+#define TWO_BYTE_MASK  0xF
+#define FOUR_BYTE_MASK 0xFF
 
 /**
  * all operations related to the position itself
@@ -103,7 +108,6 @@ void Position_setBlackKingSideCastle(Position * position) {
 	position->flags |= 1 << 4;
 }
 
-
 void Position_setBlackQueenSideCastle(Position * position) {
 	position->flags |= 1 << 5;
 }
@@ -123,3 +127,24 @@ bool Position_isBlackKingSideCastle(Position * position) {
 bool Position_isBlackQueenSideCastle(Position * position) {
 	return position->flags & (1 << 5);
 }
+
+//En passant
+void Position_setEnPassantColumn(Position * position, int column) {
+    //position->flags &= 0x00 << FLAGS_START_EN_PASSANT; 
+    position->flags |= column << FLAGS_START_EN_PASSANT;
+}
+
+void Position_resetEnPassant(Position * position) {
+    position->flags &= 0x00 << FLAGS_START_EN_PASSANT;
+}
+
+int Position_getEnPassantColumn(Position * position) {
+    U64 mask = TWO_BYTE_MASK << FLAGS_START_EN_PASSANT;
+    return (position->flags & mask) >> FLAGS_START_EN_PASSANT;
+}
+
+
+ 
+
+
+

@@ -5,10 +5,10 @@
 #include "../position/position.h"
 
 void testBuildFromFen1() {
-	char fen[] = "rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2";
+	char fen[] = "rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq e3 1 2";
 	Position * position = fenToPosition(fen);
 	//dumpPosition(position);
-    //printf("w: %d b:%d",countWhitePiecesOfPosition(position), countBlackPieces(position));
+    printf("w: %d b:%d",Position_countWhitePieces(position), Position_countBlackPieces(position));
 	TEST_ASSERT_NOT_NULL(position);
 	TEST_ASSERT_TRUE(Position_countPiecesOfPosition(position) == 32);
     TEST_ASSERT_TRUE(Position_countWhitePieces(position) == 16);
@@ -18,6 +18,7 @@ void testBuildFromFen1() {
 	TEST_ASSERT_TRUE(Position_isWhiteQueenSideCastle(position));
 	TEST_ASSERT_TRUE(Position_isBlackKingSideCastle(position));
 	TEST_ASSERT_TRUE(Position_isBlackQueenSideCastle(position));
+	TEST_ASSERT_TRUE(Position_getEnPassantColumn(position) == 5);
 }
 
 void testBuildFromFen2() {
@@ -46,6 +47,7 @@ void testBuildFromFen3() {
 	TEST_ASSERT_FALSE(Position_isWhiteQueenSideCastle(position));
 	TEST_ASSERT_FALSE(Position_isBlackKingSideCastle(position));
 	TEST_ASSERT_TRUE(Position_isBlackQueenSideCastle(position));
+
 }
 
 void testAllFen() {

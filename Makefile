@@ -31,6 +31,6 @@ unity: vendor/unity/unity.c
 test_fen: test/test_fen.c position fen common board_display
 	$(CC) $(FLAGS) -o ./bin/test_fen test/test_fen.c position/position.o position/board_display.o position/fen.o vendor/unity/unity.o
 
-test_all: test_fen
+test: test_fen
 
 all: print_board

@@ -59,21 +59,47 @@ void Fen_processCastling(Position * position, char * fragment) {
 	for(int i = 0; i<strlen(fragment); i++) {
 		if(fragment[i]=='K') Position_setWhiteKingSideCastle(position);
 		else if(fragment[i]=='k') Position_setWhiteQueenSideCastle(position);
-		else if(fragment[i]=='Q')  Position_setBlackKingSideCastle(position);
-		else if(fragment[i]=='q') setBlackQueenSideCastle(position);
+		else if(fragment[i]=='Q') Position_setBlackKingSideCastle(position);
+		else if(fragment[i]=='q') Position_setBlackQueenSideCastle(position);
 	}
 }
 
 void Fen_processEnPassant(Position * position, char * fragment) {
 	//use only the column, the square can be inferred who is to move
 	char column = fragment[0];
+
+
+	int columnValue = 0;// (int)column - 89; //from 1 to 8;
 	switch(column) {
 		case 'a':
-
+			columnValue = 1;
+			break;
+		case 'b':
+			columnValue = 2;
+			break;
+		case 'c':
+			columnValue = 3;
+			break;
+		case 'd':
+			columnValue = 4;
+			break;
+		case 'e':
+			columnValue = 5;
+			break;
+		case 'f':
+			columnValue = 6;
+			break;
+		case 'g':
+			columnValue = 7;
+			break;
+		case 'h':
+			columnValue = 8;
 			break;
 	}
 
-
+	
+	printf("xxx----->%d\n", columnValue);
+	Position_setEnPassantColumn(position, columnValue);
 }
 
 Position * fenToPosition(char * fen) {
@@ -89,7 +115,7 @@ Position * fenToPosition(char * fen) {
 	printf("2nd fragment -->%s\n", second_fragment);
 
 	if(second_fragment[0] == 'w') {
-		setWhiteToMove(position);
+		Position_setWhiteToMove(position);
 	}
 	else if(second_fragment[0] == 'b') {
 		Position_setBlackToMove(position);
@@ -103,6 +129,9 @@ Position * fenToPosition(char * fen) {
 	printf("3rd fragment -->%s\n", third_fragment);
 	Fen_processCastling(position, third_fragment);
 
+	//4. en passant
+	char * fourth_fragment = strtok(NULL, " ");
+	Fen_processEnPassant(position, fourth_fragment);
 
 	Fen_processPiecesFragment(position, first_fragment);
 
