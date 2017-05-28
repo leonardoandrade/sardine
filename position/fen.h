@@ -3,6 +3,6 @@
 #include "definitions.h"
 #include "position.h"
 
-Position * fenToPosition(char *);
+Position * Fen_fenToPosition(char *);
 
 #endif

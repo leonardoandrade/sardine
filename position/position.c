@@ -5,9 +5,9 @@
 #include <string.h>
 #include <stdbool.h>
 
-#define FLAGS_START_EN_PASSANT 7
-#define FLAGS_START_HALFMOVE_COUNT 7
-#define FLAGS_START_HALFMOVE_COUNT_WITHOUT_CAPTURE 11
+#define FLAGS_START_EN_PASSANT 5
+#define FLAGS_START_HALF_MOVE_CLOCK 7
+#define FLAGS_START_FULL_MOVE_COUNT 11
 #define TWO_BYTE_MASK  0xF
 #define FOUR_BYTE_MASK 0xFF
 
@@ -97,35 +97,35 @@ bool Position_isWhiteToMove(Position * position) {
 }
 
 void Position_setWhiteKingSideCastle(Position * position) {
-	position->flags |= 1 << 2;
+	position->flags |= 0x1 << 1;
 }
 
 void Position_setWhiteQueenSideCastle(Position * position) {
-	position->flags |= 1 << 3;
+	position->flags |= 0x1 << 2;
 }
 
 void Position_setBlackKingSideCastle(Position * position) {
-	position->flags |= 1 << 4;
+	position->flags |= 0x1 << 3;
 }
 
 void Position_setBlackQueenSideCastle(Position * position) {
-	position->flags |= 1 << 5;
+	position->flags |= 0x1 << 4;
 }
 
 bool Position_isWhiteKingSideCastle(Position * position) {
-	return position->flags & (1 << 2);
+	return position->flags & (0x1 << 1);
 }
 
 bool Position_isWhiteQueenSideCastle(Position * position) {
-	return position->flags & (1 << 3);
+	return position->flags & (0x1 << 2);
 }
 
 bool Position_isBlackKingSideCastle(Position * position) {
-	return position->flags & (1 << 4);
+	return position->flags & (0x1 << 3);
 }
 
 bool Position_isBlackQueenSideCastle(Position * position) {
-	return position->flags & (1 << 5);
+	return position->flags & (0x1 << 4);
 }
 
 //En passant
@@ -143,8 +143,22 @@ int Position_getEnPassantColumn(Position * position) {
     return (position->flags & mask) >> FLAGS_START_EN_PASSANT;
 }
 
+//Half move clock
+void Position_setHalfMoveClock(Position * position, int halfMoveClock) {
+    position->flags |= halfMoveClock << FLAGS_START_HALF_MOVE_CLOCK;
+}
 
- 
+int Position_getHalfMoveClock(Position * position) {
+    U64 mask = TWO_BYTE_MASK << FLAGS_START_HALF_MOVE_CLOCK;
+    return (position->flags & mask) >> FLAGS_START_HALF_MOVE_CLOCK;
+}
 
+//Full move count
+void Position_setFullMoveCount(Position * position, int fullMoveCount) {
+    position->flags |= fullMoveCount << FLAGS_START_FULL_MOVE_COUNT;
+}
 
-
+int Position_getFullMoveCount(Position * position) {
+    U64 mask = TWO_BYTE_MASK << FLAGS_START_FULL_MOVE_COUNT;
+    return (position->flags & mask) >> FLAGS_START_FULL_MOVE_COUNT;
+}

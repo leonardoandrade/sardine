@@ -26,7 +26,7 @@ void print_as_binary(U64 theNumber) {
 
 int main() {
     U64 theNumber = 0x0;
-    int banana = 17;
+    int banana = 1;
     int position = 7;
     theNumber |= banana << position;
     

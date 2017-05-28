@@ -4,7 +4,7 @@ FLAGS = -g -Wall
 CC=clang
 
 clean:
-	rm -f */*.o bin/* */*.gcda */*.gcno
+	rm -rf */*.o bin/* */*.gcda */*.gcno
 
 sardine: sardine.c
 	$(CC) $(FLAGS) -c -o sardine.o sardine.c

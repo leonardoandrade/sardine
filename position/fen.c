@@ -4,7 +4,6 @@
 #include <string.h>
 #include <stdio.h>
 
-
 int positionToPosition [8][8] = {
 	{A8, B8, C8, D8, E8, F8, G8, H8},
 	{A7, B7, C7, D7, E7, F7, G7, H7},
@@ -17,7 +16,7 @@ int positionToPosition [8][8] = {
 };
 
 char pieceChars[12] = {'K', 'k', 'Q', 'q', 'R', 'r', 'B', 'b', 'N', 'n', 'P', 'p'};
-PIECE pieceNames[12] = {WHITE_KING, BLACK_KING, WHITE_QUEEN, BLACK_QUEEN, WHITE_ROOK, BLACK_ROOK, WHITE_BISHOP, 
+PIECE pieceNames[12] = {WHITE_KING, BLACK_KING, WHITE_QUEEN, BLACK_QUEEN, WHITE_ROOK, BLACK_ROOK, WHITE_BISHOP,
 BLACK_BISHOP, WHITE_KNIGHT, BLACK_KNIGHT, WHITE_PAWN, BLACK_PAWN};
 
 PIECE charToPiece(char c) {
@@ -68,45 +67,31 @@ void Fen_processEnPassant(Position * position, char * fragment) {
 	//use only the column, the square can be inferred who is to move
 	char column = fragment[0];
 
-
-	int columnValue = 0;// (int)column - 89; //from 1 to 8;
-	switch(column) {
-		case 'a':
-			columnValue = 1;
-			break;
-		case 'b':
-			columnValue = 2;
-			break;
-		case 'c':
-			columnValue = 3;
-			break;
-		case 'd':
-			columnValue = 4;
-			break;
-		case 'e':
-			columnValue = 5;
-			break;
-		case 'f':
-			columnValue = 6;
-			break;
-		case 'g':
-			columnValue = 7;
-			break;
-		case 'h':
-			columnValue = 8;
-			break;
+	int columnValue = 0;
+	if(column >= 'a' && column <= 'h') {
+		columnValue = column - 96; //from 1 to 8;
 	}
 
-	
-	printf("xxx----->%d\n", columnValue);
-	Position_setEnPassantColumn(position, columnValue);
+	if(columnValue != 0) {
+		Position_setEnPassantColumn(position, columnValue);
+	}
 }
 
-Position * fenToPosition(char * fen) {
+void Fen_processHalfMoveClock(Position * position, char * fragment) {
+	int halfMoveClock = atoi(fragment);
+	Position_setHalfMoveClock(position, halfMoveClock);
+}
 
-	printf("1-->%s\n", fen);
+void Fen_processMoveCount(Position * position, char * fragment) {
+	int moveCount = atoi(fragment);
+	Position_setFullMoveCount(position, moveCount);
+}
+
+
+Position * Fen_fenToPosition(char * fen) {
+
 	Position * position = makePosition();
-	//process pieces positions
+	//1. process pieces positions
 	char * first_fragment = strtok(fen, " ");
 	printf("1st fragment -->%s\n", first_fragment);
 
@@ -132,6 +117,14 @@ Position * fenToPosition(char * fen) {
 	//4. en passant
 	char * fourth_fragment = strtok(NULL, " ");
 	Fen_processEnPassant(position, fourth_fragment);
+
+	//5. half move clock
+	char * fifth_fragment = strtok(NULL, " ");
+	Fen_processHalfMoveClock(position, fifth_fragment);
+
+	//6. half move clock
+	char * sixth_fragment = strtok(NULL, " ");
+	Fen_processMoveCount(position, sixth_fragment);
 
 	Fen_processPiecesFragment(position, first_fragment);
 

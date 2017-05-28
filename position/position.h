@@ -10,20 +10,22 @@ typedef struct Piece {
 } Piece;
 
 typedef struct Position {
-    U64 flags;
+    U32 flags;
     Piece * firstWhite;
     Piece * firstBlack;
 } Position;
 
 
 /* Flags work like this:
- * pos   | flag
- *   0   | white to move
- *   1   | white can 0-0
- *   2   | black can 0-0
- *   3   | white can 0-0-0
- *   4   | black can 0-0-0
- *   5-6 | column of en-passant. From 1 to 8, or 0 for no-enpassant
+ * pos    | flag
+ *   0    | white to move
+ *   1    | white can 0-0
+ *   2    | black can 0-0
+ *   3    | white can 0-0-0
+ *   4    | black can 0-0-0
+ *   5-6  | column of en-passant. From 1 to 8, or 0 for no-enpassant
+ *   7-11 | half move clock
+ *   11-15| full move count
 */
 
 char * to_fen(Position);
@@ -70,5 +72,14 @@ bool Position_isBlackQueenSideCastle(Position * position);
 void Position_setEnPassantColumn(Position *, int);
 void Position_resetEnPassant(Position *);
 int  Position_getEnPassantColumn(Position *);
+
+//Half move clock
+void Position_setHalfMoveClock(Position *, int);
+int Position_getHalfMoveClock(Position *);
+
+//Full move count
+void Position_setFullMoveCount(Position *, int);
+int Position_getFullMoveCount(Position *);
+
 
 #endif
