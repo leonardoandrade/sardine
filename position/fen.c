@@ -3,6 +3,7 @@
 #include "common.h"
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 int positionToPosition [8][8] = {
 	{A8, B8, C8, D8, E8, F8, G8, H8},
@@ -79,6 +80,7 @@ void Fen_processEnPassant(Position * position, char * fragment) {
 
 void Fen_processHalfMoveClock(Position * position, char * fragment) {
 	int halfMoveClock = atoi(fragment);
+	printf("---> %d\n", halfMoveClock);
 	Position_setHalfMoveClock(position, halfMoveClock);
 }
 

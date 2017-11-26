@@ -96,23 +96,34 @@ void writePieceToPosition(char positionView[8][8], Piece * piece) {
 }
 
 void dumpFlags(Position * p) {
-    char str[8];
-    memset(str, ' ',8);
-    str[0] = p->flags & 0x01 ? '1' : '0';
-    str[1] = p->flags & 0x02 ? '1' : '0';
-    str[2] = p->flags & 0x05 ? '1' : '0';
-    str[3] = p->flags & 0x08 ? '1' : '0';
-    str[4] = p->flags & 0x10 ? '1' : '0';
-    str[5] = p->flags & 0x20 ? '1' : '0';
-    str[6] = p->flags & 0x40 ? '1' : '0';
-    str[7] = p->flags & 0x80 ? '1' : '0';
+    char str[17];
+	memset(str, ' ',16);
+	str[16] = '\0';
+    str[0] =  p->flags & 0x01   ? '1' : '0';
+    str[1] =  p->flags & 0x02   ? '1' : '0';
+    str[2] =  p->flags & 0x05   ? '1' : '0';
+    str[3] =  p->flags & 0x08   ? '1' : '0';
+    str[4] =  p->flags & 0x10   ? '1' : '0';
+    str[5] =  p->flags & 0x20   ? '1' : '0';
+    str[6] =  p->flags & 0x40   ? '1' : '0';
+	str[7] =  p->flags & 0x80   ? '1' : '0';
+	str[8] =  p->flags & 0x100  ? '1' : '0';
+    str[9] =  p->flags & 0x200  ? '1' : '0';
+	str[10] = p->flags & 0x400  ? '1' : '0';
+    str[11] = p->flags & 0x800  ? '1' : '0';
+	str[12] = p->flags & 0x1000 ? '1' : '0';
+    str[13] = p->flags & 0x2000 ? '1' : '0';
+	str[14] = p->flags & 0x4000 ? '1' : '0';
+    str[15] = p->flags & 0x8000 ? '1' : '0';
+    //str[16] = p->flags & 0x10000 ? '1' : '0';
+    
     printf("Flags: %s\n", str);
 }
 
 
 void dumpPosition(Position * position) {
-    char * to_move = Position_isWhiteToMove(position) ? "white" : " black";
-
+	char * to_move = Position_isWhiteToMove(position) ? "white" : " black";
+	
     printf("%s to move:\n", to_move);
 
 

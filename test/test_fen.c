@@ -11,8 +11,8 @@ void testBuildFromFen1() {
     //printf("w: %d b:%d",Position_countWhitePieces(position), Position_countBlackPieces(position));
 	TEST_ASSERT_NOT_NULL(position);
 	TEST_ASSERT_TRUE(Position_countPiecesOfPosition(position) == 32);
-  TEST_ASSERT_TRUE(Position_countWhitePieces(position) == 16);
-  TEST_ASSERT_TRUE(Position_countBlackPieces(position) == 16);
+	TEST_ASSERT_TRUE(Position_countWhitePieces(position) == 16);
+	TEST_ASSERT_TRUE(Position_countBlackPieces(position) == 16);
 	TEST_ASSERT_FALSE(Position_isWhiteToMove(position));
 	TEST_ASSERT_TRUE(Position_isWhiteKingSideCastle(position));
 	TEST_ASSERT_TRUE(Position_isWhiteQueenSideCastle(position));
@@ -21,6 +21,8 @@ void testBuildFromFen1() {
 	TEST_ASSERT_TRUE(Position_getEnPassantColumn(position) == 5);
 	TEST_ASSERT_TRUE(Position_getHalfMoveClock(position) == 1);
 	TEST_ASSERT_TRUE(Position_getFullMoveCount(position) == 2);
+	dumpFlags(position);
+	printf("clocks: %d %d\n", Position_getHalfMoveClock(position), Position_getFullMoveCount(position));
 }
 
 void testBuildFromFen2() {
@@ -35,6 +37,8 @@ void testBuildFromFen2() {
 	TEST_ASSERT_FALSE(Position_isWhiteQueenSideCastle(position));
 	TEST_ASSERT_FALSE(Position_isBlackKingSideCastle(position));
 	TEST_ASSERT_FALSE(Position_isBlackQueenSideCastle(position));
+	dumpFlags(position);	
+	printf("clocks: %d %d\n", Position_getHalfMoveClock(position), Position_getFullMoveCount(position));
 }
 
 void testBuildFromFen3() {
@@ -49,6 +53,8 @@ void testBuildFromFen3() {
 	TEST_ASSERT_FALSE(Position_isWhiteQueenSideCastle(position));
 	TEST_ASSERT_FALSE(Position_isBlackKingSideCastle(position));
 	TEST_ASSERT_TRUE(Position_isBlackQueenSideCastle(position));
+	dumpFlags(position);	
+	printf("clocks: %d %d\n", Position_getHalfMoveClock(position), Position_getFullMoveCount(position));
 	TEST_ASSERT_TRUE(Position_getHalfMoveClock(position) == 20);
 	TEST_ASSERT_TRUE(Position_getFullMoveCount(position) == 84);
 }
