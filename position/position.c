@@ -4,12 +4,39 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
+#include <math.h>
 
 #define FLAGS_START_EN_PASSANT 5
-#define FLAGS_START_HALF_MOVE_CLOCK 7
-#define FLAGS_START_FULL_MOVE_COUNT 11
-#define TWO_BYTE_MASK  0xF
-#define FOUR_BYTE_MASK 0xFF
+#define FLAGS_START_HALF_MOVE_CLOCK 8
+#define FLAGS_START_FULL_MOVE_COUNT 16
+#define TWO_BIT_MASK    0x3
+#define THREE_BIT_MASK  0xE
+#define ONE_BYTE_MASK   0xFFFF
+
+void print_as_binary(U32 theNumber) {
+    char str[33];
+	memset(str, ' ',33);
+	str[16] = '\0';
+    str[0] =  theNumber & 0x01   ? '1' : '0';
+    str[1] =  theNumber & 0x02   ? '1' : '0';
+    str[2] =  theNumber & 0x04   ? '1' : '0';
+    str[3] =  theNumber & 0x08   ? '1' : '0';
+    str[4] =  theNumber & 0x10   ? '1' : '0';
+    str[5] =  theNumber & 0x20   ? '1' : '0';
+    str[6] =  theNumber & 0x40   ? '1' : '0';
+	str[7] =  theNumber & 0x80   ? '1' : '0';
+	str[8] =  theNumber & 0x100  ? '1' : '0';
+    str[9] =  theNumber & 0x200  ? '1' : '0';
+	str[10] = theNumber & 0x400  ? '1' : '0';
+    str[11] = theNumber & 0x800  ? '1' : '0';
+	str[12] = theNumber & 0x1000 ? '1' : '0';
+    str[13] = theNumber & 0x2000 ? '1' : '0';
+	str[14] = theNumber & 0x4000 ? '1' : '0';
+    str[15] = theNumber & 0x8000 ? '1' : '0';
+    //str[16] = p->flags & 0x10000 ? '1' : '0';
+    
+    printf("VALUE: %s\n", str);
+}
 
 /**
  * all operations related to the position itself
@@ -130,27 +157,28 @@ bool Position_isBlackQueenSideCastle(Position * position) {
 
 //En passant
 void Position_setEnPassantColumn(Position * position, int column) {
-    //position->flags &= 0x00 << FLAGS_START_EN_PASSANT; 
     position->flags |= column << FLAGS_START_EN_PASSANT;
 }
 
 void Position_resetEnPassant(Position * position) {
-    position->flags &= 0x00 << FLAGS_START_EN_PASSANT;
+    position->flags |= 0x00 << FLAGS_START_EN_PASSANT;
 }
 
 int Position_getEnPassantColumn(Position * position) {
-    U64 mask = TWO_BYTE_MASK << FLAGS_START_EN_PASSANT;
+    U32 mask = THREE_BIT_MASK << FLAGS_START_EN_PASSANT;
+    print_as_binary(mask);
     return (position->flags & mask) >> FLAGS_START_EN_PASSANT;
 }
 
 //Half move clock
 void Position_setHalfMoveClock(Position * position, int halfMoveClock) {
     position->flags |= halfMoveClock << FLAGS_START_HALF_MOVE_CLOCK;
-    position->flags |= (halfMoveClock >> 1) << (FLAGS_START_HALF_MOVE_CLOCK+1);
+    //position->flags |= (halfMoveClock >> 1) << (FLAGS_START_HALF_MOVE_CLOCK+1);
 }
 
 int Position_getHalfMoveClock(Position * position) {
-    U64 mask = TWO_BYTE_MASK << FLAGS_START_HALF_MOVE_CLOCK;
+    U32 mask = ONE_BYTE_MASK << FLAGS_START_HALF_MOVE_CLOCK;
+    print_as_binary(mask);
     return (position->flags & mask) >> FLAGS_START_HALF_MOVE_CLOCK;
 }
 
@@ -160,6 +188,6 @@ void Position_setFullMoveCount(Position * position, int fullMoveCount) {
 }
 
 int Position_getFullMoveCount(Position * position) {
-    U64 mask = TWO_BYTE_MASK << FLAGS_START_FULL_MOVE_COUNT;
+    U64 mask = ONE_BYTE_MASK << FLAGS_START_FULL_MOVE_COUNT;
     return (position->flags & mask) >> FLAGS_START_FULL_MOVE_COUNT;
 }
