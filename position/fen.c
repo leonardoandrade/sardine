@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
 int positionToPosition [8][8] = {
 	{A8, B8, C8, D8, E8, F8, G8, H8},
 	{A7, B7, C7, D7, E7, F7, G7, H7},
@@ -75,12 +76,13 @@ void Fen_processEnPassant(Position * position, char * fragment) {
 
 	if(columnValue != 0) {
 		Position_setEnPassantColumn(position, columnValue);
+	} else {
+		Position_resetEnPassant(position);
 	}
 }
 
 void Fen_processHalfMoveClock(Position * position, char * fragment) {
 	int halfMoveClock = atoi(fragment);
-	printf("---> %d\n", halfMoveClock);
 	Position_setHalfMoveClock(position, halfMoveClock);
 }
 
@@ -111,6 +113,7 @@ Position * Fen_fenToPosition(char * fen) {
 		panic("Error parsing FEN: turn to move is not 'w' or 'b'");
 	}
 
+
 	//3. castling
 	char * third_fragment = strtok(NULL, " ");
 	printf("3rd fragment -->%s\n", third_fragment);
@@ -118,17 +121,23 @@ Position * Fen_fenToPosition(char * fen) {
 
 	//4. en passant
 	char * fourth_fragment = strtok(NULL, " ");
+	printf("4th fragment -->%s\n", third_fragment);
 	Fen_processEnPassant(position, fourth_fragment);
+
 
 	//5. half move clock
 	char * fifth_fragment = strtok(NULL, " ");
+	printf("5th fragment -->%s\n", fifth_fragment);
 	Fen_processHalfMoveClock(position, fifth_fragment);
 
 	//6. half move clock
 	char * sixth_fragment = strtok(NULL, " ");
+	printf("6th fragment -->%s\n", sixth_fragment);
+
 	Fen_processMoveCount(position, sixth_fragment);
 
 	Fen_processPiecesFragment(position, first_fragment);
 
+	dumpPosition(position);
 	return position;
 }

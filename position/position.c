@@ -7,34 +7,22 @@
 #include <math.h>
 
 #define FLAGS_START_EN_PASSANT 5
-#define FLAGS_START_HALF_MOVE_CLOCK 8
-#define FLAGS_START_FULL_MOVE_COUNT 16
+#define FLAGS_START_HALF_MOVE_CLOCK 9
+#define FLAGS_START_FULL_MOVE_COUNT 17
 #define TWO_BIT_MASK    0x3
 #define THREE_BIT_MASK  0xE
-#define ONE_BYTE_MASK   0xFFFF
+#define ONE_BYTE_MASK   0xFF
+#define TWO_BYTE_MASK   0xFFFF
+
 
 void print_as_binary(U32 theNumber) {
     char str[33];
 	memset(str, ' ',33);
-	str[16] = '\0';
-    str[0] =  theNumber & 0x01   ? '1' : '0';
-    str[1] =  theNumber & 0x02   ? '1' : '0';
-    str[2] =  theNumber & 0x04   ? '1' : '0';
-    str[3] =  theNumber & 0x08   ? '1' : '0';
-    str[4] =  theNumber & 0x10   ? '1' : '0';
-    str[5] =  theNumber & 0x20   ? '1' : '0';
-    str[6] =  theNumber & 0x40   ? '1' : '0';
-	str[7] =  theNumber & 0x80   ? '1' : '0';
-	str[8] =  theNumber & 0x100  ? '1' : '0';
-    str[9] =  theNumber & 0x200  ? '1' : '0';
-	str[10] = theNumber & 0x400  ? '1' : '0';
-    str[11] = theNumber & 0x800  ? '1' : '0';
-	str[12] = theNumber & 0x1000 ? '1' : '0';
-    str[13] = theNumber & 0x2000 ? '1' : '0';
-	str[14] = theNumber & 0x4000 ? '1' : '0';
-    str[15] = theNumber & 0x8000 ? '1' : '0';
-    //str[16] = p->flags & 0x10000 ? '1' : '0';
+    for(int i = 0; i< 32; i++) {
+        str[i] = theNumber & (int)powl(2, i) ? '1' : '0';
+    }
     
+    str[32] = '\0';
     printf("VALUE: %s\n", str);
 }
 
@@ -167,7 +155,8 @@ void Position_resetEnPassant(Position * position) {
 int Position_getEnPassantColumn(Position * position) {
     U32 mask = THREE_BIT_MASK << FLAGS_START_EN_PASSANT;
     print_as_binary(mask);
-    return (position->flags & mask) >> FLAGS_START_EN_PASSANT;
+    //print_as_binary((position->flags & mask) >> FLAGS_START_EN_PASSANT + 4);
+    return (position->flags & mask) >> (FLAGS_START_EN_PASSANT);
 }
 
 //Half move clock
@@ -188,6 +177,6 @@ void Position_setFullMoveCount(Position * position, int fullMoveCount) {
 }
 
 int Position_getFullMoveCount(Position * position) {
-    U64 mask = ONE_BYTE_MASK << FLAGS_START_FULL_MOVE_COUNT;
+    U32 mask = TWO_BYTE_MASK << FLAGS_START_FULL_MOVE_COUNT;
     return (position->flags & mask) >> FLAGS_START_FULL_MOVE_COUNT;
 }

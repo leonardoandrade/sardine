@@ -1,5 +1,5 @@
 #FLAGS = -g -Wall -coverage
-FLAGS = -g -Wall
+FLAGS = -g -Wall -lm
 
 CC=clang
 

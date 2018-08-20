@@ -1,2 +1,2 @@
-make test
+make test &&
 ./bin/test_fen
