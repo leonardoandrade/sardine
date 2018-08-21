@@ -1,5 +1,7 @@
 #include <string.h>
 #include <stdio.h>
+#include <math.h>
+
 #include "definitions.h"
 #include "position.h"
 #include "board_display.h"
@@ -97,7 +99,7 @@ void writePieceToPosition(char positionView[8][8], Piece * piece) {
 
 void dumpFlags(Position * p) {
     char str[33];
-	memset(str, ' ', 32);
+		memset(str, ' ', 32);
     for(int i = 0; i< 32; i++) {
         str[i] = p->flags & (int)powl(2, i) ? '1' : '0';
     }

@@ -48,11 +48,9 @@ void Fen_processPiecesFragment(Position * position, char * fragment) {
 				Position_addPieceToPosition(position, p, positionToPosition[row][column]);
 				column++;
 			}
-			//printf("%c", row_str[i]);
 		}
 		row++;
 		row_str = strtok(NULL, "/");
-		//printf("\n");
 	}
 }
 

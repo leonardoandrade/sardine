@@ -14,18 +14,6 @@
 #define ONE_BYTE_MASK   0xFF
 #define TWO_BYTE_MASK   0xFFFF
 
-
-void print_as_binary(U32 theNumber) {
-    char str[33];
-	memset(str, ' ',33);
-    for(int i = 0; i< 32; i++) {
-        str[i] = theNumber & (int)powl(2, i) ? '1' : '0';
-    }
-    
-    str[32] = '\0';
-    printf("VALUE: %s\n", str);
-}
-
 /**
  * all operations related to the position itself
  */
@@ -154,8 +142,6 @@ void Position_resetEnPassant(Position * position) {
 
 int Position_getEnPassantColumn(Position * position) {
     U32 mask = THREE_BIT_MASK << FLAGS_START_EN_PASSANT;
-    print_as_binary(mask);
-    //print_as_binary((position->flags & mask) >> FLAGS_START_EN_PASSANT + 4);
     return (position->flags & mask) >> (FLAGS_START_EN_PASSANT);
 }
 
@@ -167,7 +153,6 @@ void Position_setHalfMoveClock(Position * position, int halfMoveClock) {
 
 int Position_getHalfMoveClock(Position * position) {
     U32 mask = ONE_BYTE_MASK << FLAGS_START_HALF_MOVE_CLOCK;
-    print_as_binary(mask);
     return (position->flags & mask) >> FLAGS_START_HALF_MOVE_CLOCK;
 }
 
