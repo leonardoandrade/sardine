@@ -24,8 +24,8 @@ typedef struct Position {
  *   3    | white can 0-0-0
  *   4    | black can 0-0-0
  *   5-6  | column of en-passant. From 1 to 8, or 0 for no-enpassant
- *   7-11 | half move clock
- *   11-15| full move count
+ *   9-17 | half move clock
+ *   17-25| full move count
 */
 
 char * to_fen(Position);

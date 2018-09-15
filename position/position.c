@@ -148,7 +148,6 @@ int Position_getEnPassantColumn(Position * position) {
 //Half move clock
 void Position_setHalfMoveClock(Position * position, int halfMoveClock) {
     position->flags |= halfMoveClock << FLAGS_START_HALF_MOVE_CLOCK;
-    //position->flags |= (halfMoveClock >> 1) << (FLAGS_START_HALF_MOVE_CLOCK+1);
 }
 
 int Position_getHalfMoveClock(Position * position) {
